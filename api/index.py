@@ -8,6 +8,7 @@ from api.routes.llm_eval_batch import router as llm_eval_batch_router
 from api.routes.semantic_similarity import router as semantic_similarity_router
 from api.routes.ml_flow import router as ml_flow_router
 from api.routes.model_answer import router as model_answer_router
+from api.routes.metric_evaluation import router as metric_evaluation_router
 
 app = FastAPI(title="FastAPI Vercel Template")
 
@@ -29,6 +30,7 @@ app.include_router(llm_eval_batch_router)
 app.include_router(semantic_similarity_router)
 app.include_router(ml_flow_router)
 app.include_router(model_answer_router)
+app.include_router(metric_evaluation_router)
 
 
 @app.get("/")

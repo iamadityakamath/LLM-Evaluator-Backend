@@ -25,10 +25,24 @@ def llm_eval_batch(payload: dict[str, Any]):
     results = []
     for q, g, m in zip(questions, grounded_answers, model_answers):
         result = evaluator.evaluate(question=q, answer=m, context=g)
+        metrics = {
+            # "bleu": result.metrics['bleu'].name,
+            "bleu_score": result.metrics['bleu'].score,
+            # "rouge": result.metrics['rouge'].name,
+            "rouge_score": result.metrics['rouge'].score,
+            # "token_overlap": result.metrics['token_overlap'].name,
+            "token_overlap_score": result.metrics['token_overlap'].score,
+            # "keyword_coverage": result.metrics['keyword_coverage'].name,
+            "keyword_coverage_score": result.metrics['keyword_coverage'].score,
+            # "answer_length": result.metrics['answer_length'].name,
+            "answer_length_score": result.metrics['answer_length'].score,
+            # "readability": result.metrics['readability'].name,
+            "readability_score": result.metrics['readability'].score
+        }
         results.append({
             "question": q,
             "model_answer": m,
             "grounded_answer": g,
-            "summary": result.summary(),
+            **metrics
         })
     return {"results": results}
